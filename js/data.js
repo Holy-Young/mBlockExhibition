@@ -1,65 +1,247 @@
-// 这里存放所有课程数据，以后增加课程只需复制粘贴 { ... } 这一块
+// =============================================
+//  课程数据
+//  后续增加课程只需复制粘贴 { ... } 这一块
+// =============================================
 const courseData = [
     {
-        id: "L01", // 唯一编号
-        title: "第1课：欢迎走进信息科技“酷”世界",
-        desc: "破学生对 “信息科技” 的陌生感，用 “酷” 的视角激发兴趣，建立对学科的初步认知",
-        tags: ["基础", "入门"], // 标签
-        difficulty: 1, // 难度 1-5 星
-        // 以下路径对应 assets 文件夹里的文件
-        cover: "assets/images/cover1.jpg", 
-        video: "assets/videos/demo1.mp4",
-        code: "assets/code/src1.zip",
-        ppt: "assets/slides/slide1.pdf",
-        teacherNote: "本节课重点在于理解'英文标点符号'的重要性。" // 老师寄语
+        id: "L01",
+        title: "第1课_赛博鱼缸",
+        desc: "打造一个虚拟的鱼缸，体验编程的乐趣。",
+        tags: ["重复执行", "旋转方式"],
+        difficulty: 1,
+        cover: "assets/images/cover/cover1.jpg",
+        intro: "本课将带领学生用编程方式模拟鱼缸环境，加入电子小鱼的自定义运动行为，激发学习兴趣，适合初学者。",
+        video: "assets/videos/video1.mp4",
+        codeImages: [
+            "assets/images/code/code1-1.png", 
+            "assets/images/code/code1-2.png",
+        ],
+        code: "assets/code/电子鱼缸.mblock",
+        ppt: "assets/ppt/03赛博鱼缸.enbx",
+        materials: "assets/materials/电子鱼缸素材.zip", 
+        teacherNote: "注意关注是否能理解鱼的运动方向和重复执行积木的用法。"
     },
-    {
+    {   
         id: "L02",
-        title: "第2课：认识慧编程",
-        desc: "从 “陌生” 到 “初步掌握” 慧编程的基础操作，为后续编程创作打基础",
-        tags: ["界面认识"],
+        title: "第2课_猫和老鼠",     
+        desc: "用编程实现猫追老鼠的趣味小游戏。",
+        tags: ["重复执行","碰到","广播","角色移动"],
         difficulty: 2,
-        cover: "assets/images/cover2.jpg",
-        video: "assets/videos/demo2.mp4",
-        code: "assets/code/src2.zip",
-        ppt: "assets/slides/slide2.pdf",
-        teacherNote: "循环结构是绘制重复图形的关键！"
+        cover: "assets/images/cover/cover2.jpg",
+        intro: "本课通过猫和老鼠互动程序，让学生体验角色移动、广播通信和碰撞检测的逻辑，培养问题分析和编程思维。",
+        video: "assets/videos/video2.mp4",
+        codeImages: [
+            "assets/images/code/code2-1.png", 
+            "assets/images/code/code2-2.png"
+        ],
+        code: "assets/code/猫和老鼠.mblock",
+        ppt: "assets/ppt/04猫和老鼠.enbx",
+        materials: "assets/materials/猫和老鼠素材.zip", 
+        teacherNote: "提醒注意广播机制和碰撞事件逻辑，不要只关注画面动作。"
     },
     {
         id: "L03",
-        title: "第3课：赛博鱼缸",
-        desc: "使用 Turtle 库绘制五角星和复杂的螺旋线。",
-        tags: ["图形化", "趣味"],
+        title: "第3课_植物大战僵尸",  
+        desc: "用积木实现经典的植物大战僵尸游戏。",
+        tags: ["重复执行直到","如果.那么.","克隆","变量"],
         difficulty: 3,
-        cover: "assets/images/cover3.jpg",
-        video: "assets/videos/demo3.mp4",
-        code: "assets/code/src3.zip",
-        ppt: "assets/slides/slide3.pdf",
-        teacherNote: "循环结构是绘制重复图形的关键！"
+        cover: "assets/images/cover/cover3.png",
+        intro: "本课以‘植物大战僵尸’为项目，综合运用重复执行直到、条件判断、角色克隆和变量管理，提升项目开发与逻辑能力。",
+        video: "assets/videos/video3.mp4",
+        codeImages: [
+            "assets/images/code/code3-1.png", 
+            "assets/images/code/code3-2.png",
+            "assets/images/code/code3-3.png",
+            "assets/images/code/code3-4.png",
+            "assets/images/code/code3-5.png",
+        ],
+        code: "assets/code/植物大战僵尸.mblock",
+        ppt: "assets/ppt/05植物大战僵尸.enbx",
+        materials: "assets/materials/植物大战僵尸素材.zip", 
+        teacherNote: "重点理解变量与克隆逻辑，注意代码结构的清晰和规范。"
     },
     {
         id: "L04",
-        title: "第4课：猫和老鼠",
-        desc: "使用 Turtle 库绘制五角星和复杂的螺旋线。",
-        tags: ["图形化", "趣味"],
+        title: "第4课_飞刀大师",  
+        desc: "挑战射击游戏，练习精准编程操作。",
+        tags: ["面向.方向", "碰到.颜色"],
         difficulty: 3,
-        cover: "assets/images/cover3.jpg",
-        video: "assets/videos/demo3.mp4",
-        code: "assets/code/src3.zip",
-        ppt: "assets/slides/slide3.pdf",
-        teacherNote: "循环结构是绘制重复图形的关键！"
+        cover: "assets/images/cover/cover4.png",
+        intro: "本课以‘飞刀大师’为题，训练学生角色方向控制和颜色碰撞识别，丰富游戏类型实践机会。",
+        video: "assets/videos/video4.mp4",
+        codeImages: [
+            "assets/images/code/code4-1.png", 
+            "assets/images/code/code4-2.png"
+        ],
+        code: "assets/code/飞刀大师.mblock",
+        ppt: "assets/ppt/06飞刀大师.enbx",
+        materials: "assets/materials/飞刀大师素材.zip", 
+        teacherNote: "关注对方向和颜色碰撞积木的运用，强调算法思路。"
     },
     {
         id: "L05",
-        title: "第5课：植物大战僵尸",
-        desc: "使用 Turtle 库绘制五角星和复杂的螺旋线。",
-        tags: ["图形化", "趣味"],
+        title: "第5课_星际风云",  
+        desc: "编程制作仿星际大战游戏，探索广播和随机数。",
+        tags: ["广播", "随机数","移到鼠标","碰到"],
+        difficulty: 5,
+        cover: "assets/images/cover/cover5.png",
+        intro: "本课通过星际风云游戏，运用广播通信和随机数，提高复杂游戏开发能力，激发学生创新思考。",
+        video: "assets/videos/video5.mp4",
+        codeImages: [
+            "assets/images/code/code5-1.png", 
+            "assets/images/code/code5-2.png",
+            "assets/images/code/code5-3.png",
+            "assets/images/code/code5-4.png",
+            "assets/images/code/code5-5.png",
+            "assets/images/code/code5-6.png"
+        ],
+        code: "assets/code/星际风云.mblock",
+        ppt: "assets/ppt/07星际风云.enbx",
+        materials: "assets/materials/星际风云素材.zip", 
+        teacherNote: "处理广播和随机数，注重游戏美工和逻辑完整性。"
+    },
+    {
+        id: "L06",
+        title: "第6课_钢铁侠",  
+        desc: "体验英雄角色编程，学习克隆和造型变换。",
+        tags: ["角色移动", "克隆","随机数","换造型"],
         difficulty: 3,
-        cover: "assets/images/cover3.jpg",
-        video: "assets/videos/demo3.mp4",
-        code: "assets/code/src3.zip",
-        ppt: "assets/slides/slide3.pdf",
-        teacherNote: "循环结构是绘制重复图形的关键！"
+        cover: "assets/images/cover/cover6.jpg",
+        intro: "以钢铁侠为主题，学生将在项目中应用角色移动、克隆、随机事件和造型切换，实现多样化动画效果。",
+        video: "assets/videos/video6.mp4",
+        codeImages: [
+            "assets/images/code/code6-1.png", 
+            "assets/images/code/code6-2.png"
+        ],
+        code: "assets/code/钢铁侠.mblock",
+        ppt: "assets/ppt/08钢铁侠.enbx",
+        materials: "assets/materials/钢铁侠素材.zip", 
+        teacherNote: "注意对克隆及造型切换的理解，鼓励创新造型设计。"
+    },
+    {
+        id: "L07",
+        title: "第7课_切水果",  
+        desc: "实现切水果游戏，综合画笔、特效与碰撞。",
+        tags: ["画笔", "移到鼠标","随机数","碰到.颜色","特效"],
+        difficulty: 4,
+        cover: "assets/images/cover/cover7.png",
+        intro: "本课带领学生用画笔积木实现果实的生成与切割，融合碰撞检测和特效，提升图形编程能力。",
+        video: "assets/videos/video7.mp4",
+        codeImages: [
+            "assets/images/code/code7-1.png", 
+            "assets/images/code/code7-2.png",    
+            "assets/images/code/code7-3.png",
+            "assets/images/code/code7-4.png",
+            "assets/images/code/code7-5.png"
+        ],
+        code: "assets/code/切水果.mblock",
+        ppt: "assets/ppt/09切水果.enbx",
+        materials: "", 
+        teacherNote: "鼓励尝试不同特效和画笔工具，重视程序流畅和趣味性。"
+    },
+    {
+        id: "L08",
+        title: "第8课_Flappy Bird",  
+        desc: "挑战经典Flappy Bird，练习条件和造型编程。",
+        tags: ["或", "重复执行直到","换造型"],
+        difficulty: 4,
+        cover: "assets/images/cover/cover8.png",
+        intro: "带领学生制作Flappy Bird游戏，掌握条件判断、循环与造型变换，全方位学习基础编程方法。",
+        video: "assets/videos/video8.mp4",
+        codeImages: [
+            "assets/images/code/code8-1.png", 
+            "assets/images/code/code8-2.png",
+            "assets/images/code/code8-3.png",
+            "assets/images/code/code8-4.png",
+            "assets/images/code/code8-5.png"
+        ],
+        code: "assets/code/Flappy Bird.mblock",
+        ppt: "assets/ppt/10Flappy Bird.enbx",
+        materials: "", 
+        teacherNote: "强化对条件判断和造型逻辑的巩固，鼓励自定义难度。"
+    },
+    {
+        id: "L09",
+        title: "第9课_打砖块",  
+        desc: "编程实现打砖块游戏，加深循环和检测理解。",
+        tags: ["嵌套循环", "互相检测","随机数"],
+        difficulty: 5,
+        cover: "assets/images/cover/cover9.png",
+        intro: "通过制作打砖块，学生练习嵌套循环、角色互相检测和随机数，提高项目编程能力。",
+        video: "assets/videos/video9.mp4",
+        codeImages: [
+            "assets/images/code/code9-1.png", 
+            "assets/images/code/code9-2.png",
+            "assets/images/code/code9-3.png",
+            "assets/images/code/code9-4.png",
+            "assets/images/code/code9-5.png"
+        ],
+        code: "assets/code/打砖块.mblock",
+        ppt: "assets/ppt/11打砖块.enbx",
+        materials: "", 
+        teacherNote: "重点是嵌套循环和角色检测。"
+    },
+    {
+        id: "L10",
+        title: "第10课_放烟花",  
+        desc: "编程制作烟花绽放效果，体验创意造型。",
+        tags: ["换造型", "随机数","特效"],
+        difficulty: 3,
+        cover: "assets/images/cover/cover10.png",
+        intro: "烟花课注重造型切换与特效表现，培养学生对编程美学的感知和创新能力。",
+        video: "assets/videos/video10.mp4",
+        codeImages: [
+            "assets/images/code/code10-1.png", 
+            "assets/images/code/code10-2.png"
+        ],
+        code: "assets/code/放烟花.mblock",
+        ppt: "assets/ppt/12放烟花.enbx",
+        materials: "assets/materials/放烟花素材.zip", 
+        teacherNote: "探索多种造型与随机特效，发挥创意与表现力。"
+    },
+];
+
+
+// =============================================
+//  学生作品数据
+//  后续添加作品：复制一个 {} 块填写即可
+// =============================================
+const worksData = [
+    {
+        id: "W01",
+        title: "赛博宠物养成器",
+        author: "张同学",
+        grade: "五年级",
+        cover: "assets/images/cover/cover1.jpg",  
+        desc: "用 Scratch 制作的电子宠物游戏，可以喂食、互动，宠物还会随时间成长！",
+        tags: ["Scratch", "游戏", "互动"],
+        award: "校级一等奖",
+        date: "2025-05",
+        lessonRef: "L01"  // 对应课程ID，可选
+    },
+    {
+        id: "W02",
+        title: "智能垃圾分类助手",
+        author: "李同学",
+        grade: "六年级",
+        cover: "assets/images/cover/cover2.jpg",
+        desc: "结合图像识别思路，制作了一个能够判断垃圾类别并语音播报的程序。",
+        tags: ["Python", "AI应用", "环保"],
+        award: "",
+        date: "2025-06",
+        lessonRef: "L02"
+    },
+    {
+        id: "W03",
+        title: "植物生长模拟器",
+        author: "王同学",
+        grade: "五年级",
+        cover: "assets/images/cover/cover3.jpg",
+        desc: "用变量模拟阳光、水分、养分参数，观察植物在不同条件下的生长变化，配合动画展示效果极佳。",
+        tags: ["Python", "模拟", "科学"],
+        award: "市级优秀奖",
+        date: "2025-06",
+        lessonRef: "L03"
     }
-    // 复制上方结构，添加第n课...
+    // 继续添加作品……
 ];

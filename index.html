@@ -1,18 +1,51 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>慧编程 · 课程成果展</title>
+    <title>慧编程 · 课程展示</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <h1>慧编程 mBlock 学期课例展示</h1>
-        <p><span id="typing-text" class="typing-effect"></span></p>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/images/logo.png" alt="Logo" class="main-logo">
+                    <span class="logo-text">慧编程课例展示</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">课程首页</a></li>
+                <li><a href="works.html">学生作品</a></li>
+                <li><a href="about.html">关于课程</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="tech-header">
+        <div class="overlay"></div>
+        <div class="header-content">
+            <h1 class="glitch" data-text="慧编程">-慧编程课例-</h1>
+            <p class="subtitle">
+                <span id="typing-text"></span>
+                <span class="cursor">_</span>
+            </p>
+        </div>
     </header>
 
     <main class="container">
+        <div class="section-title">
+            <h2><span class="icon"></span> 课程进度长廊</h2>
+            <div class="line"></div>
+        </div>
+
+        <!-- 筛选栏：标签由 JS 从 courseData 动态提取 -->
+        <div class="filter-bar" id="home-filter-bar">
+            <span class="filter-label">筛选标签：</span>
+            <button class="filter-btn active" data-filter="all">全部</button>
+        </div>
+
         <div id="course-grid" class="grid"></div>
     </main>
 

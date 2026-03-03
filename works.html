@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>慧编程 · 学生作品</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 复用首页打字机光标动画 */
+        .cursor { animation: blink 0.8s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* ===== 学生作品页专属样式 ===== */
+
+        /* 覆盖主页背景色，保持深色科技感 */
+        body {
+            background-color: var(--bg-dark, #0f172a);
+            color: var(--text-main, #ffffff);
+        }
+
+        /* --- Hero 区：与首页 tech-header 相同结构，但换色调强调"作品" --- */
+        .works-header {
+            height: 320px;
+            background: #000 url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 70px;
+            overflow: hidden;
+        }
+
+        /* 光晕：换成紫色/粉色系，与首页青色做区分，同时保持赛博感 */
+        .works-header::before {
+            content: '';
+            position: absolute;
+            width: 150%; height: 150%;
+            background: radial-gradient(circle at 30% 50%, rgba(167, 139, 250, 0.25) 0%, transparent 60%),
+                        radial-gradient(circle at 70% 50%, rgba(79, 172, 254, 0.15) 0%, transparent 60%);
+            animation: pulse 8s infinite alternate;
+        }
+
+        /* 飘动粒子装饰（纯CSS，轻量） */
+        .works-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 20% 30%, rgba(167,139,250,0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 80% 20%, rgba(0,242,254,0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 55% 70%, rgba(245,158,11,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 10% 80%, rgba(167,139,250,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 90% 60%, rgba(0,242,254,0.3) 0%, transparent 100%);
+            background-size: 3px 3px, 3px 3px, 3px 3px, 3px 3px, 3px 3px;
+        }
+
+        @keyframes pulse {
+            0%  { transform: scale(1);   opacity: 0.5; }
+            100%{ transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .works-header .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .works-header .glitch {
+            font-size: 3.6rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px #a78bfa, -2px -2px #00f2fe;
+            letter-spacing: 5px;
+        }
+
+        .works-header .subtitle {
+            font-size: 1.1rem;
+            color: #a78bfa;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+
+        /* --- 筛选栏 --- */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            padding: 16px 20px;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+        }
+
+        .filter-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .filter-btn {
+            padding: 6px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: transparent;
+            color: #cbd5e1;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: rgba(167, 139, 250, 0.2);
+            border-color: #a78bfa;
+            color: #a78bfa;
+            box-shadow: 0 0 10px rgba(167,139,250,0.3);
+        }
+
+        /* --- 作品卡片：继承首页 .card 结构，叠加微调 --- */
+        /* 
+            复用: .card, .card-img, .card-body, h3, .card-desc, .tags, .stars
+            追加: .work-badge (学生姓名徽章)、hover 换色
+        */
+        .card:hover {
+            box-shadow: 0 15px 40px rgba(167, 139, 250, 0.25);
+        }
+
+        /* 卡片右上角：学生姓名徽章 */
+        .card-img-wrap {
+            position: relative;
+            height: 180px;
+            flex-shrink: 0;
+        }
+
+        .card-img-wrap .card-img {
+            height: 100%;
+        }
+
+        .work-badge {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: rgba(15, 23, 42, 0.82);
+            border: 1px solid rgba(167, 139, 250, 0.5);
+            color: #a78bfa;
+            font-size: 0.72rem;
+            padding: 3px 10px;
+            border-radius: 50px;
+            backdrop-filter: blur(4px);
+            letter-spacing: 0.5px;
+        }
+
+        /* 作品卡片标签用紫色系 */
+        .works-page .tags span {
+            background: rgba(167, 139, 250, 0.1);
+            color: #a78bfa;
+            border-color: rgba(167, 139, 250, 0.25);
+        }
+
+        /* 获奖标记 */
+        .award-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            color: #f59e0b;
+            background: rgba(245,158,11,0.1);
+            border: 1px solid rgba(245,158,11,0.3);
+            border-radius: 50px;
+            padding: 3px 10px;
+        }
+
+        /* --- 空状态 --- */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            color: #475569;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+
+        .empty-state p {
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* --- 页面容器继承首页 .container --- */
+        /* section-title 已在 style.css 定义，直接复用 */
+
+        /* --- 统计数据条 --- */
+        .stats-bar {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+            padding: 20px 24px;
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(79, 172, 254, 0.15);
+            border-radius: 12px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-num {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-neon, #00f2fe);
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px rgba(0,242,254,0.4);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+            color: #64748b;
+            letter-spacing: 1px;
+        }
+
+        /* 模态框（作品详情弹窗） */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #0f172a;
+            border: 1px solid rgba(167, 139, 250, 0.4);
+            border-radius: 16px;
+            max-width: 560px;
+            width: 90%;
+            padding: 32px;
+            position: relative;
+            box-shadow: 0 0 60px rgba(167,139,250,0.2);
+            animation: modalIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover { color: #a78bfa; }
+
+        .modal-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .modal-author {
+            color: #a78bfa;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 10px;
+        }
+
+        .modal-desc {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .modal-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .modal-tags span {
+            background: rgba(167, 139, 250, 0.1);
+            color: #a78bfa;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            border: 1px solid rgba(167,139,250,0.25);
+        }
+
+        .modal-footer {
+            border-top: 1px dashed rgba(255,255,255,0.08);
+            padding-top: 16px;
+            font-size: 0.82rem;
+            color: #475569;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body class="works-page">
+
+    <!-- 导航栏（与首页完全一致） -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/images/logo.png" alt="Logo" class="main-logo">
+                    <span class="logo-text">慧编程课例展示</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">课程首页</a></li>
+                <li><a href="works.html" class="active">学生作品</a></li>
+                <li><a href="about.html">关于课程</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero 区 -->
+    <header class="works-header">
+        <div class="header-content">
+            <h1 class="glitch">-学生作品集-</h1>
+            <p class="subtitle">
+                <span id="typing-text"></span>
+                <span class="cursor">_</span>
+            </p>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="container">
+
+        <!-- 统计数据 -->
+        <div class="stats-bar" id="stats-bar">
+            <div class="stat-item">
+                <span class="stat-num" id="stat-total">0</span>
+                <span class="stat-label">作品总数</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" id="stat-students">0</span>
+                <span class="stat-label">参与同学</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" id="stat-awards">0</span>
+                <span class="stat-label">获奖作品</span>
+            </div>
+        </div>
+
+        <!-- 区块标题 -->
+        <div class="section-title">
+            <h2>🏆 作品展示</h2>
+            <div class="line"></div>
+        </div>
+
+        <!-- 筛选栏 -->
+        <div class="filter-bar">
+            <span class="filter-label">筛选标签：</span>
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <!-- 动态标签由 JS 注入 -->
+        </div>
+
+        <!-- 作品卡片网格（与首页 .grid 相同） -->
+        <div id="works-grid" class="grid"></div>
+    </main>
+
+    <!-- 作品详情模态框 -->
+    <div class="modal-overlay" id="work-modal">
+        <div class="modal-box">
+            <button class="modal-close" id="modal-close-btn">✕</button>
+            <img class="modal-img" id="modal-img" src="" alt="">
+            <div class="modal-author" id="modal-author"></div>
+            <div class="modal-title" id="modal-title"></div>
+            <div class="modal-desc" id="modal-desc"></div>
+            <div class="modal-tags" id="modal-tags"></div>
+            <div class="modal-footer" id="modal-footer"></div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script>
+    // worksData 已迁移至 js/data.js，此处无需重复定义
+
+    // =============================================
+    //  渲染逻辑
+    // =============================================
+
+    function getStars(n) {
+        return '★'.repeat(n) + '☆'.repeat(5 - n);
+    }
+
+    let currentFilter = 'all';
+
+    function renderWorks(filter) {
+        const grid = document.getElementById('works-grid');
+        const filtered = filter === 'all'
+            ? worksData
+            : worksData.filter(w => w.tags.includes(filter));
+
+        if (filtered.length === 0) {
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">🔭</div>
+                    <p>// 暂无匹配的作品，期待同学们的创作！</p>
+                </div>`;
+            return;
+        }
+
+        grid.innerHTML = '';
+        filtered.forEach(work => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.style.cursor = 'pointer';
+            card.onclick = () => openModal(work);
+
+            const awardHtml = work.award
+                ? `<span class="award-tag">🏆 ${work.award}</span>`
+                : '';
+
+            card.innerHTML = `
+                <div class="card-img-wrap">
+                    <div class="card-img" style="background-image: url('${work.cover}')"></div>
+                    <span class="work-badge">👤 ${work.author} · ${work.grade}</span>
+                </div>
+                <div class="card-body">
+                    <h3>${work.title}</h3>
+                    <div class="tags">
+                        ${work.tags.map(t => `<span>${t}</span>`).join('')}
+                        ${awardHtml}
+                    </div>
+                    <p class="card-desc">${work.desc}</p>
+                    <div class="stars" style="color: #a78bfa; font-size: 0.8rem;">
+                        📅 ${work.date}&nbsp;&nbsp;点击查看详情 →
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function openModal(work) {
+        document.getElementById('modal-img').src = work.cover;
+        document.getElementById('modal-author').textContent = `👤 ${work.author} · ${work.grade}   📅 ${work.date}`;
+        document.getElementById('modal-title').textContent = work.title;
+        document.getElementById('modal-desc').textContent = work.desc;
+        document.getElementById('modal-tags').innerHTML =
+            work.tags.map(t => `<span>${t}</span>`).join('') +
+            (work.award ? `<span style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.3)">🏆 ${work.award}</span>` : '');
+        document.getElementById('modal-footer').textContent =
+            work.lessonRef
+                ? `// 关联课程：${work.lessonRef}   | 作品编号：${work.id}`
+                : `// 作品编号：${work.id}`;
+        document.getElementById('work-modal').classList.add('open');
+    }
+
+    function closeModal() {
+        document.getElementById('work-modal').classList.remove('open');
+    }
+
+    // 关闭模态框
+    document.getElementById('modal-close-btn').onclick = closeModal;
+    document.getElementById('work-modal').onclick = function(e) {
+        if (e.target === this) closeModal();
+    };
+
+    // 统计数据
+    function renderStats() {
+        document.getElementById('stat-total').textContent = worksData.length;
+        const students = new Set(worksData.map(w => w.author)).size;
+        document.getElementById('stat-students').textContent = students;
+        const awards = worksData.filter(w => w.award).length;
+        document.getElementById('stat-awards').textContent = awards;
+    }
+
+    // 动态生成筛选标签
+    function renderFilters() {
+        const allTags = [...new Set(worksData.flatMap(w => w.tags))];
+        const bar = document.querySelector('.filter-bar');
+        allTags.forEach(tag => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn';
+            btn.dataset.filter = tag;
+            btn.textContent = tag;
+            btn.onclick = function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = tag;
+                renderWorks(tag);
+            };
+            bar.appendChild(btn);
+        });
+
+        // 全部按钮事件
+        document.querySelector('[data-filter="all"]').onclick = function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentFilter = 'all';
+            renderWorks('all');
+        };
+    }
+
+    // 数字滚动动画
+    function animateCount(el, target, duration = 1000) {
+        let start = 0;
+        const step = target / (duration / 16);
+        const timer = setInterval(() => {
+            start += step;
+            if (start >= target) { el.textContent = target; clearInterval(timer); }
+            else el.textContent = Math.floor(start);
+        }, 16);
+    }
+
+    // 打字机特效（与首页逻辑完全一致）
+    function typeEffect(element, text, speed = 100) {
+        let i = 0;
+        const timer = setInterval(() => {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(timer);
+                setTimeout(() => {
+                    const deleteTimer = setInterval(() => {
+                        if (element.textContent.length > 0) {
+                            element.textContent = element.textContent.slice(0, -1);
+                        } else {
+                            clearInterval(deleteTimer);
+                            typeEffect(element, text, speed);
+                        }
+                    }, speed / 2);
+                }, 1000);
+            }
+        }, speed);
+    }
+
+    // 页面初始化
+    document.addEventListener('DOMContentLoaded', () => {
+        renderStats();
+        renderFilters();
+        renderWorks('all');
+
+        const subtitle = document.getElementById('typing-text');
+        if (subtitle) typeEffect(subtitle, "每一行代码，都是创造力的印记...");
+
+        // 数字动画（稍延迟触发）
+        setTimeout(() => {
+            animateCount(document.getElementById('stat-total'),    worksData.length);
+            animateCount(document.getElementById('stat-students'), new Set(worksData.map(w => w.author)).size);
+            animateCount(document.getElementById('stat-awards'),   worksData.filter(w => w.award).length);
+        }, 300);
+    });
+    </script>
+</body>
+</html>

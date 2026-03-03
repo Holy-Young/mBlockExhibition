@@ -3,39 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>课程详情</title>
+    <title>课程详情控制台</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <div class="container">
-        <nav class="back-nav">
-            <a href="index.html">← 返回课程列表</a>
-        </nav>
-
-        <h1 id="d-title" style="margin-bottom: 20px;">加载中...</h1>
-
-        <div class="video-box">
-            <video id="d-video" controls>
-                您的浏览器不支持视频播放。
-            </video>
-        </div>
-
-        <div class="resource-row">
-            <a id="btn-code" href="#" class="res-btn" download>
-                <h3>💻 下载源代码</h3>
-                <p>获取 .mblock / .zip 文件</p>
+<body class="detail-page">
+    <nav class="navbar detail-nav">
+        <div class="nav-container">
+            <a href="index.html" class="back-link">
+                <span class="arrow">←</span> 返回首页 / 课程进度长廊
             </a>
-            <a id="btn-ppt" href="#" class="res-btn" download>
-                <h3>📖 下载课件</h3>
-                <p>获取课堂演示 PPT</p>
-            </a>
+            <div class="logo-text">慧编程课例展示</div>
         </div>
+    </nav>
 
-        <div class="teacher-note">
-            <strong>👩‍🏫 老师寄语：</strong>
-            <span id="d-note">...</span>
+    <main class="container main-console">
+        <header class="console-header">
+            <h1 id="d-title" style="color:var(--primary-neon); font-size: 2.2rem; margin-bottom: 10px;">加载中...</h1>
+            <p id="d-intro" style="color:#94a3b8; line-height: 1.6;">正在读取项目摘要...</p>
+        </header>
+
+        <div class="console-grid">
+            <div class="left-col">
+                <div class="tech-panel">
+                    <div class="panel-header">📺 成果演示终端</div>
+                    <div class="video-wrapper">
+                        <video id="d-video" controls>您的浏览器不支持视频播放。</video>
+                    </div>
+                </div>
+                
+                <div class="tech-panel">
+                    <div class="panel-header">🧩 核心代码截图</div>
+                    <div class="main-image-view">
+                        <img id="d-code-main" src="" alt="代码大图">
+                    </div>
+                    <div id="d-code-thumbnails" class="thumbnail-list"></div>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="tech-panel">
+                    <h2>💾 数据资源仓储</h2>
+                    <div class="download-grid">
+                        <a id="btn-code" href="#" class="tech-btn code-btn" download>
+                            <span class="icon">💻</span>
+                            <div class="btn-text">
+                                <h3>源程序文件</h3>
+                                <p>.mblock / .py</p>
+                            </div>
+                        </a>
+                        <a id="btn-ppt" href="#" class="tech-btn ppt-btn" download>
+                            <span class="icon">📖</span>
+                            <div class="btn-text">
+                                <h3>教学课件</h3>
+                                <p>课堂演示 PPT</p>
+                             </div>
+                        </a>
+                        <a id="btn-assets" href="#" class="tech-btn asset-btn" download>
+                            <span class="icon">🎨</span>
+                            <div class="btn-text">
+                                <h3>项目素材包</h3>
+                                <p>图片/音频资源</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="tech-panel" style="border-color: #f59e0b;">
+                    <h3 style="color: #f59e0b; border-left-color: #f59e0b;">📡 老师的加密信号</h3>
+                    <div style="color: #fcd34d; font-family: monospace; padding-top: 10px;">
+                        <span id="d-note">...</span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
 
     <script src="js/data.js"></script>
     <script src="js/script.js"></script>
