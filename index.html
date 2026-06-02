@@ -1,55 +1,74 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>慧编程 · 课程展示</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧编程 · 课程展示</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo-area">
-                <a href="index.html" class="logo-link">
-                    <img src="assets/images/logo.png" alt="Logo" class="main-logo">
-                    <span class="logo-text">慧编程课例展示</span>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">课程首页</a></li>
-                <li><a href="works.html">学生作品</a></li>
-                <li><a href="about.html">关于课程</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <header class="tech-header">
-        <div class="overlay"></div>
-        <div class="header-content">
-            <h1 class="glitch" data-text="慧编程">-慧编程课例-</h1>
-            <p class="subtitle">
-                <span id="typing-text"></span>
-                <span class="cursor">_</span>
-            </p>
-        </div>
-    </header>
+  <!-- ── Global Nav ── -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo-area">
+        <a href="index.html" class="logo-link">
+          <img src="assets/images/logo.png" alt="数据谷中学校" class="main-logo">
+          <span class="logo-text">慧编程课例展示</span>
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">课程首页</a></li>
+        <li><a href="works.html">学生作品</a></li>
+        <li><a href="about.html">关于课程</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <main class="container">
-        <div class="section-title">
-            <h2><span class="icon"></span> 课程进度长廊</h2>
-            <div class="line"></div>
-        </div>
+  <!-- ── Hero ── -->
+  <header class="page-hero">
+    <p class="hero-eyebrow">数据谷中学校 · 信息科技</p>
+    <h1 class="hero-headline">慧编程课例展示</h1>
+    <p class="hero-sub">
+      <span class="typewriter-wrap">
+        <span id="typing-text"></span><span class="cursor">|</span>
+      </span>
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <a href="#courses" class="btn-primary">浏览课程</a>
+      <a href="about.html" class="btn-ghost btn-ghost-dark">了解更多</a>
+    </div>
+  </header>
 
-        <!-- 筛选栏：标签由 JS 从 courseData 动态提取 -->
-        <div class="filter-bar" id="home-filter-bar">
-            <span class="filter-label">筛选标签：</span>
-            <button class="filter-btn active" data-filter="all">全部</button>
-        </div>
+  <!-- ── Course Section ── -->
+  <main class="container" id="courses">
+    <div class="section-title">
+      <h2>课程进度长廊</h2>
+      <div class="accent-line"></div>
+      <p class="subtitle" style="margin-top:8px;">记录每一节课的学习成果，见证成长的足迹</p>
+    </div>
 
-        <div id="course-grid" class="grid"></div>
-    </main>
+    <!-- Filter Bar -->
+    <div class="filter-bar" id="home-filter-bar">
+      <span class="filter-label">筛选标签：</span>
+      <button class="filter-btn active" data-filter="all">全部</button>
+    </div>
 
-    <script src="js/data.js"></script>
-    <script src="js/script.js"></script>
+    <!-- Cards -->
+    <div id="course-grid" class="grid"></div>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-logo">
+      <img src="assets/images/logo.png" alt="数据谷中学校">
+      <span>慧编程课例展示 · 数据谷中学校</span>
+    </div>
+    <p>重庆八中数据谷中学校 · 信息科技教研组 · 2026</p>
+    <p style="margin-top:4px;">DATA VALLEY MIDDLE SCHOOL AFFILIATED TO CHONGQING NO.8 SECONDARY SCHOOL</p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

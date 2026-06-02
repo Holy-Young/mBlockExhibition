@@ -1,618 +1,212 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>慧编程 · 关于课程</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* 复用首页打字机光标动画 */
-        .cursor { animation: blink 0.8s infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* ===== 关于课程页专属样式 ===== */
-        body {
-            background-color: var(--bg-dark, #0f172a);
-            color: var(--text-main, #ffffff);
-        }
-
-        /* --- Hero 区：极光绿金配色，区别于其他页 --- */
-        .about-header {
-            height: 320px;
-            background: #000 url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-top: 70px;
-            overflow: hidden;
-        }
-
-        .about-header::before {
-            content: '';
-            position: absolute;
-            width: 150%; height: 150%;
-            background: radial-gradient(ellipse at 20% 60%, rgba(16, 185, 129, 0.2) 0%, transparent 55%),
-                        radial-gradient(ellipse at 80% 40%, rgba(245, 158, 11, 0.15) 0%, transparent 55%),
-                        radial-gradient(ellipse at 50% 80%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
-            animation: pulse 8s infinite alternate;
-        }
-
-        /* 网格纹理 */
-        .about-header::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(16,185,129,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(16,185,129,0.04) 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-
-        .about-header .header-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-
-        .about-header .glitch {
-            font-size: 3.6rem;
-            font-weight: 900;
-            color: white;
-            text-shadow: 2px 2px #10b981, -2px -2px #f59e0b;
-            letter-spacing: 5px;
-        }
-
-        .about-header .subtitle {
-            font-size: 1.1rem;
-            color: #10b981;
-            margin-top: 15px;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
-        }
-
-        /* ---- 理念卡片区：横向三联 ---- */
-        .concept-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 50px;
-        }
-
-        .concept-card {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 16px;
-            padding: 28px 24px;
-            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .concept-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 3px;
-            background: linear-gradient(to right, var(--primary-neon), var(--secondary-neon));
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .concept-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(16, 185, 129, 0.5);
-            box-shadow: 0 12px 40px rgba(16, 185, 129, 0.15);
-        }
-
-        .concept-card:hover::before { opacity: 1; }
-
-        .concept-icon {
-            font-size: 2.4rem;
-            margin-bottom: 14px;
-            display: block;
-        }
-
-        .concept-card h3 {
-            font-size: 1.15rem;
-            color: #10b981;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-
-        .concept-card p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            line-height: 1.75;
-        }
-
-        /* ---- 课程体系：时间轴 ---- */
-        .timeline {
-            position: relative;
-            padding-left: 36px;
-            margin-bottom: 50px;
-        }
-
-        /* 竖线 */
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 10px;
-            top: 4px; bottom: 4px;
-            width: 2px;
-            background: linear-gradient(to bottom, #10b981, #4facfe, transparent);
-            border-radius: 2px;
-        }
-
-        .tl-item {
-            position: relative;
-            margin-bottom: 32px;
-            padding: 20px 22px;
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(79, 172, 254, 0.15);
-            border-radius: 12px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .tl-item:hover {
-            border-color: rgba(16, 185, 129, 0.4);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.08);
-        }
-
-        /* 圆点 */
-        .tl-item::before {
-            content: '';
-            position: absolute;
-            left: -31px;
-            top: 22px;
-            width: 12px; height: 12px;
-            border-radius: 50%;
-            background: #10b981;
-            border: 2px solid var(--bg-dark, #0f172a);
-            box-shadow: 0 0 8px #10b981;
-        }
-
-        .tl-phase {
-            font-size: 0.75rem;
-            color: #10b981;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
-            margin-bottom: 6px;
-        }
-
-        .tl-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #f1f5f9;
-            margin-bottom: 8px;
-        }
-
-        .tl-desc {
-            font-size: 0.88rem;
-            color: #64748b;
-            line-height: 1.7;
-        }
-
-        .tl-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-
-        .tl-tags span {
-            background: rgba(16, 185, 129, 0.08);
-            color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 50px;
-            padding: 3px 10px;
-            font-size: 0.75rem;
-        }
-
-        /* ---- 师资介绍：科技感档案卡 ---- */
-        .teacher-card {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(245, 158, 11, 0.25);
-            border-radius: 16px;
-            padding: 28px;
-            display: flex;
-            gap: 28px;
-            align-items: flex-start;
-            margin-bottom: 50px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .teacher-card::after {
-            content: 'PROFILE';
-            position: absolute;
-            right: -20px;
-            top: 50%;
-            transform: translateY(-50%) rotate(90deg);
-            font-size: 4rem;
-            font-weight: 900;
-            color: rgba(245,158,11,0.05);
-            letter-spacing: 8px;
-            font-family: 'Courier New', monospace;
-            pointer-events: none;
-        }
-
-        .teacher-avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            overflow: hidden;
-            border: 2px solid rgba(16, 185, 129, 0.4);
-            box-shadow: 0 0 20px rgba(16,185,129,0.3);
-        }
-
-        .teacher-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .teacher-info h3 {
-            font-size: 1.25rem;
-            color: #f59e0b;
-            margin-bottom: 6px;
-        }
-
-        .teacher-info .teacher-title {
-            font-size: 0.82rem;
-            color: #10b981;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-        }
-
-        .teacher-info p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            line-height: 1.75;
-            max-width: 560px;
-        }
-
-        /* ---- FAQ ---- */
-        .faq-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 50px;
-        }
-
-        .faq-item {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .faq-q {
-            padding: 16px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            color: #f1f5f9;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: background 0.2s;
-            user-select: none;
-        }
-
-        .faq-q:hover { background: rgba(16, 185, 129, 0.08); }
-
-        .faq-q .faq-arrow {
-            color: #10b981;
-            transition: transform 0.3s;
-            font-size: 1rem;
-        }
-
-        .faq-item.open .faq-arrow { transform: rotate(180deg); }
-
-        .faq-a {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.3s;
-            color: #94a3b8;
-            font-size: 0.88rem;
-            line-height: 1.8;
-            padding: 0 20px;
-        }
-
-        .faq-item.open .faq-a {
-            max-height: 300px;
-            padding: 0 20px 18px;
-        }
-
-        /* ---- 联系 / 底部 CTA ---- */
-        .cta-box {
-            text-align: center;
-            padding: 50px 30px;
-            background: rgba(30, 41, 59, 0.4);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 16px;
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-box::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 100%, rgba(16,185,129,0.12) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .cta-box h2 {
-            font-size: 1.6rem;
-            margin-bottom: 10px;
-            color: #f1f5f9;
-        }
-
-        .cta-box p {
-            color: #64748b;
-            font-size: 0.92rem;
-            margin-bottom: 24px;
-        }
-
-        .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 32px;
-            background: linear-gradient(135deg, #10b981, #4facfe);
-            color: #0f172a;
-            font-weight: 700;
-            font-size: 0.95rem;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 0 20px rgba(16,185,129,0.3);
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 35px rgba(16,185,129,0.5);
-        }
-
-        /* section-title 与 container 复用 style.css */
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧编程 · 关于课程</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- 导航栏（与首页完全一致） -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo-area">
-                <a href="index.html" class="logo-link">
-                    <img src="assets/images/logo.png" alt="Logo" class="main-logo">
-                    <span class="logo-text">慧编程课例展示</span>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html">课程首页</a></li>
-                <li><a href="works.html">学生作品</a></li>
-                <li><a href="about.html" class="active">关于课程</a></li>
-            </ul>
+  <!-- ── Global Nav ── -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo-area">
+        <a href="index.html" class="logo-link">
+          <img src="assets/images/logo.png" alt="数据谷中学校" class="main-logo">
+          <span class="logo-text">慧编程课例展示</span>
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">课程首页</a></li>
+        <li><a href="works.html">学生作品</a></li>
+        <li><a href="about.html" class="active">关于课程</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <header class="page-hero">
+    <p class="hero-eyebrow">ABOUT THE COURSE</p>
+    <h1 class="hero-headline">关于课程</h1>
+    <p class="hero-sub">
+      <span class="typewriter-wrap">
+        <span id="typing-text"></span><span class="cursor">|</span>
+      </span>
+    </p>
+  </header>
+
+  <!-- ── 课程理念 (Light Tile) ── -->
+  <section class="container">
+    <div class="section-title">
+      <h2>课程理念</h2>
+      <div class="accent-line"></div>
+      <p class="subtitle" style="margin-top:8px;">用代码点亮思维，以创造丈量未来</p>
+    </div>
+
+    <div class="concept-grid">
+      <div class="concept-card">
+        <span class="concept-icon">🧠</span>
+        <h3>计算思维优先</h3>
+        <p>不止于语法，更注重培养分解问题、识别模式、抽象建模的能力，让编程成为解决真实问题的工具。</p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon">🎮</span>
+        <h3>项目驱动学习</h3>
+        <p>每一节课都有完整的项目成果——一个游戏、一个工具、一个作品。孩子们在"造东西"的过程中真正理解编程。</p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon">🌱</span>
+        <h3>低门槛、高天花板</h3>
+        <p>以 Scratch 图形化积木起步，逐步过渡到 Python 文本编程，分层设计保证每个层次的孩子都能找到成就感。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 课程体系 (Parchment Tile) ── -->
+  <section style="background:var(--canvas-parchment); padding: var(--sp-sec) 0;">
+    <div class="container" style="padding-top:0;padding-bottom:0;">
+      <div class="section-title">
+        <h2>课程体系</h2>
+        <div class="accent-line"></div>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-phase">PHASE · 01</div>
+          <div class="tl-title">启蒙探索阶段 / Scratch 入门</div>
+          <div class="tl-desc">通过拖拽积木完成趣味动画与小游戏，建立"程序 = 逻辑指令"的直觉认知，培养序列、循环、条件三大编程基础概念。</div>
+          <div class="tl-tags"><span>Scratch</span><span>动画</span><span>循环</span><span>条件判断</span></div>
         </div>
-    </nav>
-
-    <!-- Hero 区 -->
-    <header class="about-header">
-        <div class="header-content">
-            <h1 class="glitch">-关于课程-</h1>
-            <p class="subtitle">
-                <span id="typing-text"></span>
-                <span class="cursor">_</span>
-            </p>
+        <div class="tl-item">
+          <div class="tl-phase">PHASE · 02</div>
+          <div class="tl-title">进阶创作阶段 / 图形化 → 文本衔接</div>
+          <div class="tl-desc">引入 MBlock，让积木背后的 Python 代码"现身"，让孩子自然感知图形化与文本编程的对应关系，降低语法焦虑。</div>
+          <div class="tl-tags"><span>MBlock</span><span>Python对照</span><span>函数</span><span>变量</span></div>
         </div>
-    </header>
-
-    <main class="container">
-
-        <!-- ① 课程理念 -->
-        <div class="section-title">
-            <h2>💡 课程理念</h2>
-            <div class="line"></div>
+        <div class="tl-item">
+          <div class="tl-phase">PHASE · 03</div>
+          <div class="tl-title">项目实战阶段 / Python 独立编程</div>
+          <div class="tl-desc">完全转向 Python 文本编程，综合运用列表、字典、函数等知识，独立完成具有实用价值的完整项目。</div>
+          <div class="tl-tags"><span>Python</span><span>数据结构</span><span>项目制</span><span>调试技巧</span></div>
         </div>
-
-        <div class="concept-grid">
-            <div class="concept-card">
-                <span class="concept-icon">🧠</span>
-                <h3>计算思维优先</h3>
-                <p>不止于语法，我们更注重培养分解问题、识别模式、抽象建模的能力，让编程成为解决真实问题的工具。</p>
-            </div>
-            <div class="concept-card">
-                <span class="concept-icon">🎮</span>
-                <h3>项目驱动学习</h3>
-                <p>每一节课都有完整的项目成果——一个游戏、一个工具、一个作品。孩子们在"造东西"的过程中真正理解编程。</p>
-            </div>
-            <div class="concept-card">
-                <span class="concept-icon">🌱</span>
-                <h3>低门槛、高天花板</h3>
-                <p>以 Scratch 图形化积木起步，逐步过渡到 Python 文本编程，分层设计保证每个层次的孩子都能找到成就感。</p>
-            </div>
+        <div class="tl-item">
+          <div class="tl-phase">PHASE · 04</div>
+          <div class="tl-title">创新拓展阶段 / AI &amp; 硬件应用</div>
+          <div class="tl-desc">接触机器学习 API 与 micro:bit 硬件编程，把代码从屏幕延伸到现实世界，感受科技改变生活的力量。</div>
+          <div class="tl-tags"><span>AI应用</span><span>micro:bit</span><span>物联网</span><span>创客</span></div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- ② 课程体系 -->
-        <div class="section-title">
-            <h2>📚 课程体系</h2>
-            <div class="line"></div>
+  <!-- ── 师资介绍 ── -->
+  <section class="container">
+    <div class="section-title">
+      <h2>师资介绍</h2>
+      <div class="accent-line"></div>
+    </div>
+
+    <div class="teacher-card">
+      <div class="teacher-avatar">
+        <img src="assets/images/teacher.png" alt="教师照片">
+      </div>
+      <div class="teacher-info">
+        <h3>慧编程主讲教师</h3>
+        <div class="teacher-title">信息技术教师 · 编程教育研究者</div>
+        <p>长期深耕 K12 编程教育领域，坚信每个孩子都具备学习编程的潜力。教学风格注重"做中学"，将抽象的算法概念融入贴近生活的项目实战。致力于探索更符合认知规律的编程教学序列，让技术成为孩子表达创意的语言。</p>
+      </div>
+    </div>
+
+    <div class="teacher-card">
+      <div class="teacher-avatar">
+        <img src="assets/images/teacher.png" alt="教师照片">
+      </div>
+      <div class="teacher-info">
+        <h3>慧编程主讲教师</h3>
+        <div class="teacher-title">信息技术教师 · 编程教育研究者</div>
+        <p>长期深耕 K12 编程教育领域，坚信每个孩子都具备学习编程的潜力。教学风格注重"做中学"，将抽象的算法概念融入贴近生活的项目实战。致力于探索更符合认知规律的编程教学序列，让技术成为孩子表达创意的语言。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ (Parchment) ── -->
+  <section style="background:var(--canvas-parchment); padding: var(--sp-sec) 0;">
+    <div class="container" style="padding-top:0;padding-bottom:0;">
+      <div class="section-title">
+        <h2>常见问题</h2>
+        <div class="accent-line"></div>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q"><span>孩子没有任何编程基础，能学会吗？</span><span class="faq-arrow">▼</span></div>
+          <div class="faq-a">完全没问题！课程从最基础的 Scratch 图形化积木起步，不需要任何先验知识。只要孩子对"创造"和"游戏"感兴趣，就能在这里找到属于自己的节奏。</div>
         </div>
-
-        <div class="timeline">
-            <div class="tl-item">
-                <div class="tl-phase">PHASE · 01</div>
-                <div class="tl-title">启蒙探索阶段 / Scratch 入门</div>
-                <div class="tl-desc">通过拖拽积木完成趣味动画与小游戏，建立"程序 = 逻辑指令"的直觉认知，培养序列、循环、条件三大编程基础概念。</div>
-                <div class="tl-tags"><span>Scratch</span><span>动画</span><span>循环</span><span>条件判断</span></div>
-            </div>
-
-            <div class="tl-item">
-                <div class="tl-phase">PHASE · 02</div>
-                <div class="tl-title">进阶创作阶段 / 图形化 → 文本衔接</div>
-                <div class="tl-desc">引入 MBlock，让积木背后的 Python 代码"现身"，让孩子自然感知图形化与文本编程的对应关系，降低语法焦虑。</div>
-                <div class="tl-tags"><span>MBlock</span><span>Python对照</span><span>函数</span><span>变量</span></div>
-            </div>
-
-            <div class="tl-item">
-                <div class="tl-phase">PHASE · 03</div>
-                <div class="tl-title">项目实战阶段 / Python 独立编程</div>
-                <div class="tl-desc">完全转向 Python 文本编程，综合运用列表、字典、函数等知识，独立完成具有实用价值的完整项目。</div>
-                <div class="tl-tags"><span>Python</span><span>数据结构</span><span>项目制</span><span>调试技巧</span></div>
-            </div>
-
-            <div class="tl-item">
-                <div class="tl-phase">PHASE · 04</div>
-                <div class="tl-title">创新拓展阶段 / AI & 硬件应用</div>
-                <div class="tl-desc">接触机器学习 API 与 micro:bit 硬件编程，把代码从屏幕延伸到现实世界，感受科技改变生活的力量。</div>
-                <div class="tl-tags"><span>AI应用</span><span>micro:bit</span><span>物联网</span><span>创客</span></div>
-            </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>课程资源可以下载供孩子课后复习吗？</span><span class="faq-arrow">▼</span></div>
+          <div class="faq-a">可以！每节课的源程序、课件和素材包都可以在"课程首页"对应的课程详情页中下载。部分课程资源还在持续整理中，会陆续更新。</div>
         </div>
-
-        <!-- ③ 师资介绍 -->
-        <div class="section-title">
-            <h2>👨‍💻 师资介绍</h2>
-            <div class="line"></div>
+        <div class="faq-item">
+          <div class="faq-q"><span>孩子的作品如何提交展示到"学生作品"页面？</span><span class="faq-arrow">▼</span></div>
+          <div class="faq-a">将作品截图/演示视频发送给老师，老师会在审核后添加到作品展示页。优秀作品还有机会参与校内、市级比赛推荐！</div>
         </div>
-
-        <div class="teacher-card">
-            <div class="teacher-avatar">
-                <img src="assets/images/teacher.png" alt="教师照片">
-            </div>
-            <div class="teacher-info">
-                <h3>慧编程主讲教师</h3>
-                <div class="teacher-title">// 信息技术教师 · 编程教育研究者</div>
-                <p>
-                    长期深耕 K12 编程教育领域，坚信每个孩子都具备学习编程的潜力。
-                    教学风格注重"做中学"，将抽象的算法概念融入贴近生活的项目实战。
-                    致力于探索更符合认知规律的编程教学序列，让技术成为孩子表达创意的语言。
-                </p>
-            </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>课程用什么软件？需要提前安装吗？</span><span class="faq-arrow">▼</span></div>
+          <div class="faq-a">主要使用 MBlock 5（含 Scratch 3 模式和 Python 模式），官网免费下载，也支持网页版在线使用，无需安装。部分课次会使用 Python IDLE 或 Thonny。老师会在课前提前告知并指导安装。</div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="teacher-card">
-            <div class="teacher-avatar">
-                <img src="assets/images/teacher.png" alt="教师照片">
-            </div>
-            <div class="teacher-info">
-                <h3>慧编程主讲教师</h3>
-                <div class="teacher-title">// 信息技术教师 · 编程教育研究者</div>
-                <p>
-                    长期深耕 K12 编程教育领域，坚信每个孩子都具备学习编程的潜力。
-                    教学风格注重"做中学"，将抽象的算法概念融入贴近生活的项目实战。
-                    致力于探索更符合认知规律的编程教学序列，让技术成为孩子表达创意的语言。
-                </p>
-            </div>
-        </div>
+  <!-- ── CTA ── -->
+  <div class="container">
+    <div class="cta-box">
+      <h2>准备好开始编程之旅了吗？</h2>
+      <p>翻阅课程进度长廊，找到你感兴趣的第一节课</p>
+      <a href="index.html" class="btn-primary">前往课程首页</a>
+    </div>
+  </div>
 
-        <!-- ④ 常见问题 -->
-        <div class="section-title">
-            <h2>❓ 常见问题</h2>
-            <div class="line"></div>
-        </div>
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-logo">
+      <img src="assets/images/logo.png" alt="数据谷中学校">
+      <span>慧编程课例展示 · 数据谷中学校</span>
+    </div>
+    <p>重庆市第八中学校数据谷中学 · 信息科技教研组 · 2019</p>
+    <p style="margin-top:4px;">DATA VALLEY MIDDLE SCHOOL AFFILIATED TO CHONGQING NO.8 SECONDARY SCHOOL</p>
+  </footer>
 
-        <div class="faq-list">
-            <div class="faq-item">
-                <div class="faq-q">
-                    <span>孩子没有任何编程基础，能学会吗？</span>
-                    <span class="faq-arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    完全没问题！课程从最基础的 Scratch 图形化积木起步，不需要任何先验知识。
-                    只要孩子对"创造"和"游戏"感兴趣，就能在这里找到属于自己的节奏。
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q">
-                    <span>课程资源可以下载供孩子课后复习吗？</span>
-                    <span class="faq-arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    可以！每节课的源程序、课件和素材包都可以在"课程首页"对应的课程详情页中下载。
-                    部分课程资源还在持续整理中，会陆续更新。
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q">
-                    <span>孩子的作品如何提交展示到"学生作品"页面？</span>
-                    <span class="faq-arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    将作品截图/演示视频发送给老师，老师会在审核后添加到作品展示页。
-                    优秀作品还有机会参与校内、市级比赛推荐！
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q">
-                    <span>课程用什么软件？需要提前安装吗？</span>
-                    <span class="faq-arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    主要使用 MBlock 5（含 Scratch 3 模式和 Python 模式），官网免费下载，
-                    也支持网页版在线使用，无需安装。部分课次会使用 Python IDLE 或 Thonny。
-                    老师会在课前提前告知并指导安装。
-                </div>
-            </div>
-        </div>
-
-        <!-- ⑤ CTA -->
-        <div class="cta-box">
-            <h2>🚀 准备好开始编程之旅了吗？</h2>
-            <p>// 翻阅课程进度长廊，找到你感兴趣的第一节课</p>
-            <a href="index.html" class="cta-btn">
-                <span>📖</span> 前往课程首页
-            </a>
-        </div>
-
-    </main>
-
-    <script>
-    // 打字机特效（与首页逻辑完全一致）
-    function typeEffect(element, text, speed = 100) {
-        let i = 0;
-        const timer = setInterval(() => {
-            if (i < text.length) {
-                element.textContent += text.charAt(i);
-                i++;
-            } else {
-                clearInterval(timer);
-                setTimeout(() => {
-                    const deleteTimer = setInterval(() => {
-                        if (element.textContent.length > 0) {
-                            element.textContent = element.textContent.slice(0, -1);
-                        } else {
-                            clearInterval(deleteTimer);
-                            typeEffect(element, text, speed);
-                        }
-                    }, speed / 2);
-                }, 1000);
-            }
-        }, speed);
+  <script>
+    // Typewriter
+    function typeEffect(el, text, speed = 80) {
+      let i = 0;
+      const t = setInterval(() => {
+        if (i < text.length) { el.textContent += text[i++]; }
+        else {
+          clearInterval(t);
+          setTimeout(() => {
+            const d = setInterval(() => {
+              if (el.textContent.length > 0) el.textContent = el.textContent.slice(0,-1);
+              else { clearInterval(d); typeEffect(el, text, speed); }
+            }, speed / 2);
+          }, 1200);
+        }
+      }, speed);
     }
-
-    // FAQ 折叠交互
+    // FAQ
     document.querySelectorAll('.faq-item').forEach(item => {
-        item.querySelector('.faq-q').addEventListener('click', () => {
-            const isOpen = item.classList.contains('open');
-            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-            if (!isOpen) item.classList.add('open');
-        });
+      item.querySelector('.faq-q').addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
     });
-
-    // 页面初始化：打字机
     document.addEventListener('DOMContentLoaded', () => {
-        const subtitle = document.getElementById('typing-text');
-        if (subtitle) typeEffect(subtitle, "用代码点亮思维，以创造丈量未来...");
+      const el = document.getElementById('typing-text');
+      if (el) typeEffect(el, '用代码点亮思维，以创造丈量未来...');
     });
-    </script>
+  </script>
 </body>
 </html>
